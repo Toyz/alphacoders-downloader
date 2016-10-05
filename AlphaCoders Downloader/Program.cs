@@ -90,7 +90,7 @@ namespace AlphaCoders_Downloader
         private static string GetDownloadURL()
         {
             string base_url = Globals.base_url + "auth=" + options.AuthCode + "&check_last=1&method=" + options.SearchMode.ToString() + "&" +
-                (options.SearchMode == Globals.SearchModes.search ? "term=" + options.Search : "id=" + options.ID);
+                (options.SearchMode == Globals.SearchModes.search ? "term=" + options.Search : "id=" + options.ID) + "&sort=" + options.SortMode.ToString();
 
             if (!string.IsNullOrEmpty(options.Size))
             {

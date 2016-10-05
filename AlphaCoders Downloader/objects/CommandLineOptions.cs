@@ -30,5 +30,8 @@ namespace AlphaCoders_Downloader
 
         [Option("operator", Default = Globals.Operator.min, HelpText = "Search Operator (max, equal, min)")]
         public Globals.Operator Operator { get; set; }
+
+        [Option("sort", Default = Globals.Sort.newest, HelpText = "Sort mode for results (newest, rating, views, favorites)")]
+        public Globals.Sort SortMode { get; set; }
     }
 }
