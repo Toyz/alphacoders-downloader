@@ -7,7 +7,10 @@
             search,
             sub_category,
             category,
-            group
+            group,
+            featured,
+            tag,
+            user
         }
 
         public enum Operator

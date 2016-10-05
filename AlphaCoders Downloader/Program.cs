@@ -115,7 +115,13 @@ namespace AlphaCoders_Downloader
 
             if(options.SearchMode != Globals.SearchModes.search)
             {
-                options.Search = options.ID.ToString();
+                if (options.SearchMode != Globals.SearchModes.featured)
+                {
+                    options.Search = options.ID.ToString();
+                }else
+                {
+                    options.Search = Globals.SearchModes.featured.ToString();
+                }
             }
 
             Console.Write("Downloading and queuing all pages please wait... ");
