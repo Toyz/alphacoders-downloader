@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using CommandLine;
 using Newtonsoft.Json;
 using System.Net;
-using System.Threading;
-using System.ComponentModel;
-using System.Diagnostics;
+using System.IO;
 
 namespace AlphaCoders_Downloader
 {
@@ -22,6 +20,11 @@ namespace AlphaCoders_Downloader
             var exitCode = result.MapResult(
                 options =>
                 {
+                    if (options.AuthCode.Contains("file:"))
+                    {
+                    options.AuthCode = File.ReadAllText(options.AuthCode.Split(':')[1]);
+                    }
+    
                     WallPapers = new Dictionary<string, List<AlphaJson.Wallpaper>>();
                     if (options.Threads <= 0)
                     {
