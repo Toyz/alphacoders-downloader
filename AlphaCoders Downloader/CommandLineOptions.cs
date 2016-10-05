@@ -10,8 +10,11 @@ namespace AlphaCoders_Downloader
         [Option('a', "auth", Required = true, HelpText = "AlphaCoders API Key")]
         public string AuthCode { get; set; }
 
-        [Option('s', "search", Required = true, HelpText = "Term at which to search")]
+        [Option('s', "search", HelpText = "Term at which to search")]
         public string Search { get; set; }
+
+        [Option('i', "id", HelpText = "Category/sub_catagory if mode is sub_category or category")]
+        public int ID { get; set; }
 
         [Option('o', "output", Default = "output", HelpText = "Folder in which to save downloads at")]
         public string Output { get; set; }

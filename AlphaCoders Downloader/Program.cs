@@ -40,6 +40,11 @@ namespace AlphaCoders_Downloader
                         options.Output = Path.Combine(Directory.GetCurrentDirectory(), options.Output);
                     }
 
+                    if(options.SearchMode == Globals.SearchModes.search && string.IsNullOrEmpty(options.Search))
+                    {
+                        return 1;
+                    }
+
                     Console.Title += " - " + options.Output;
                     Program.options = options;
                     DoWork();
@@ -82,7 +87,8 @@ namespace AlphaCoders_Downloader
 
         private static string GetDownloadURL()
         {
-            string base_url = Globals.base_url + "auth=" + options.AuthCode + "&method=" + options.SearchMode.ToString() + "&" + (options.SearchMode == Globals.SearchModes.search ? "term" : "id") + "=" + options.Search;
+            string base_url = Globals.base_url + "auth=" + options.AuthCode + "&method=" + options.SearchMode.ToString() + "&" +
+                (options.SearchMode == Globals.SearchModes.search ? "term=" + options.Search : "id=" + options.ID);
 
             if (!string.IsNullOrEmpty(options.Size))
             {
@@ -103,6 +109,11 @@ namespace AlphaCoders_Downloader
             if (options.Verbose)
             {
                 Console.WriteLine("Base Download url: " + url);
+            }
+
+            if(options.SearchMode != Globals.SearchModes.search)
+            {
+                options.Search = options.ID.ToString();
             }
 
             Console.Write("Downloading and queuing all pages please wait... ");
