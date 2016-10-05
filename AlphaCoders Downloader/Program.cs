@@ -55,8 +55,8 @@ namespace AlphaCoders_Downloader
                 errors =>
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Example with ID: \"" + Process.GetCurrentProcess().ProcessName + ".exe\" --auth=auth_code --size=1920x1080 --mode=sub_category --id=173025");
-                    Console.WriteLine("Example with Search: \"" + Process.GetCurrentProcess().ProcessName + ".exe\" --auth=auth_code --size=1920x1080 --mode=search --search=anime");
+                    Console.WriteLine("Example with ID: \"" + Process.GetCurrentProcess().ProcessName + ".exe\" --auth=auth_code --size=1920x1080 --mode=1 --id=173025");
+                    Console.WriteLine("Example with Search: \"" + Process.GetCurrentProcess().ProcessName + ".exe\" --auth=auth_code --size=1920x1080 --mode=0 --search=anime");
                     return 1;
                 });
 
