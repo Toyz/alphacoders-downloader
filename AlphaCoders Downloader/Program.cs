@@ -27,14 +27,14 @@ namespace AlphaCoders_Downloader
                     {
                         options.AuthCode = File.ReadAllText(options.AuthCode.Split(':')[1]);
                     }
-    
+
                     WallPapers = new Dictionary<string, List<AlphaJson.Wallpaper>>();
                     if (options.Threads <= 0)
                     {
                         options.Threads = Environment.ProcessorCount;
                     }
 
-                    if(options.Output == "output")
+                    if (options.Output == "output")
                     {
                         options.Output = Path.Combine(Directory.GetCurrentDirectory(), options.Output);
                     }
