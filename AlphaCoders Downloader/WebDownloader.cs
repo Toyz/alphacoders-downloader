@@ -53,8 +53,7 @@ namespace AlphaCoders_Downloader
                         if (newPerc > perc)
                         {
                             perc = newPerc;
-                            if (progressDelegate != null)
-                                progressDelegate(perc, bytesReadTotal, (int)remoteSize);
+                            progressDelegate?.Invoke(perc, bytesReadTotal, (int)remoteSize);
                         }
                     }
                 }

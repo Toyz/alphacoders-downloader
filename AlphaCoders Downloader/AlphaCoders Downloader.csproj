@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="AlphaJson.cs" />
     <Compile Include="CommandLineOptions.cs" />
-    <Compile Include="Downloader.cs" />
+    <Compile Include="WebDownloader.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Program.cs" />
