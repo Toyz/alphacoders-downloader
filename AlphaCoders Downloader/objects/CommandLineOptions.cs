@@ -18,20 +18,20 @@ namespace AlphaCoders_Downloader
 
         [Option('o', "output", Default = "output", HelpText = "Folder in which to save downloads at")]
         public string Output { get; set; }
-
+        
         [Option('v', "verbose", Default = false, HelpText = "Show debug information")]
         public bool Verbose { get; set; }
 
         [Option('z', "size", HelpText = "Width x Height to search for (ex: 1920x1080)")]
         public string Size { get; set; }
 
-        [Option('m', "mode", Required = true, HelpText = "Current API Mode (search, sub_category, category, group, featured, tag, user)")]
+        [Option('m', "mode", Required = true, HelpText = "Current API Mode (0 - search, 1 - sub_category, 2 - category, 3 - group, 4 - featured, 5 - tag, 6 - user)")]
         public Globals.SearchModes SearchMode { get; set; }
 
-        [Option("operator", Default = Globals.Operator.min, HelpText = "Search Operator (max, equal, min)")]
+        [Option("operator", Default = Globals.Operator.min, HelpText = "Search Operator (0 - max, 1 - equal, 2 - min)")]
         public Globals.Operator Operator { get; set; }
 
-        [Option("sort", Default = Globals.Sort.newest, HelpText = "Sort mode for results (newest, rating, views, favorites)")]
+        [Option("sort", Default = Globals.Sort.newest, HelpText = "Sort mode for results (1 - newest, 2 - rating, 3 - views, 4 - favorites)")]
         public Globals.Sort SortMode { get; set; }
     }
 }

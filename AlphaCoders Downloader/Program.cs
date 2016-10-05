@@ -55,7 +55,8 @@ namespace AlphaCoders_Downloader
                 errors =>
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Example: " + Process.GetCurrentProcess().ProcessName + " --auth=auth_code --size=1920x1080 --mode=sub_category --search=173025");
+                    Console.WriteLine("Example with ID: \"" + Process.GetCurrentProcess().ProcessName + ".exe\" --auth=auth_code --size=1920x1080 --mode=sub_category --id=173025");
+                    Console.WriteLine("Example with Search: \"" + Process.GetCurrentProcess().ProcessName + ".exe\" --auth=auth_code --size=1920x1080 --mode=search --search=anime");
                     return 1;
                 });
 
@@ -89,8 +90,15 @@ namespace AlphaCoders_Downloader
 
         private static string GetDownloadURL()
         {
-            string base_url = Globals.base_url + "auth=" + options.AuthCode + "&check_last=1&method=" + options.SearchMode.ToString() + "&" +
-                (options.SearchMode == Globals.SearchModes.search ? "term=" + options.Search : "id=" + options.ID) + "&sort=" + options.SortMode.ToString();
+            string base_url = Globals.base_url + "auth=" + options.AuthCode + "&check_last=1&method=" + options.SearchMode.ToString() + "&sort=" + options.SortMode.ToString();
+
+            if(options.SearchMode == Globals.SearchModes.search)
+            {
+                base_url += "&term=" + options.Search;
+            }else
+            {
+                base_url += "&id=" + options.ID;
+            }
 
             if (!string.IsNullOrEmpty(options.Size))
             {
@@ -113,20 +121,21 @@ namespace AlphaCoders_Downloader
                 Console.WriteLine("Base Download url: " + url);
             }
 
-            if(options.SearchMode != Globals.SearchModes.search)
+            Console.Write("Downloading and queuing all pages please wait... ");
+            GetPages(url, 1);
+            Console.Write("Finished" + Environment.NewLine);
+
+            if (options.SearchMode != Globals.SearchModes.search)
             {
                 if (options.SearchMode != Globals.SearchModes.featured)
                 {
                     options.Search = options.ID.ToString();
-                }else
+                }
+                else
                 {
                     options.Search = Globals.SearchModes.featured.ToString();
                 }
             }
-
-            Console.Write("Downloading and queuing all pages please wait... ");
-            GetPages(url, 1);
-            Console.Write("Finished" + Environment.NewLine);
 
             Console.Write("Setting up workers and task queues... ");
 
@@ -152,7 +161,7 @@ namespace AlphaCoders_Downloader
                         }))
                         {
                             var current = 0;
-                            for (var i = 0; i < page.Value.Count - 1; i++)
+                            for (var i = 0; i < page.Value.Count; i++)
                             {
                                 var temp = i;
                                 var t = factory.StartNew(() =>
