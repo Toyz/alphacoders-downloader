@@ -12,6 +12,7 @@ namespace AlphaCoders_Downloader
     class Program
     {
         static Dictionary<string, List<AlphaJson.Wallpaper>> WallPapers;
+        static CommandLineOptions options;
 
         static int Main(string[] args)
         {
@@ -39,7 +40,8 @@ namespace AlphaCoders_Downloader
                     }
 
                     Console.Title += " - " + options.Output;
-                    DoWork(options);
+                    Program.options = options;
+                    DoWork();
                     return 0;
                 },
                 errors =>
@@ -74,7 +76,7 @@ namespace AlphaCoders_Downloader
              }
         }
 
-        private static string GetDownloadURL(CommandLineOptions options)
+        private static string GetDownloadURL()
         {
             string base_url = Globals.base_url + "auth=" + options.AuthCode + "&method=" + options.SearchMode.ToString() + "&" + (options.SearchMode == Globals.SearchModes.search ? "term" : "id") + "=" + options.Search;
 
@@ -91,13 +93,25 @@ namespace AlphaCoders_Downloader
             return base_url;
         }
 
-        private static void DoWork(CommandLineOptions options)
+        private static void DoWork()
         {
-            GetPages(GetDownloadURL(options), 1);
+            var url = GetDownloadURL();
+            if (options.Verbose)
+            {
+                Console.WriteLine("Base Download url: " + url);
+            }
+
+            Console.Write("Downloading and queuing all pages please wait... ");
+            GetPages(url, 1);
+            Console.Write("Finished" + Environment.NewLine);
+
+            Console.Write("Setting up workers and task queues... ");
 
             var maxTicks = WallPapers.Count;
             LimitedConcurrencyLevelTaskScheduler lcts = new LimitedConcurrencyLevelTaskScheduler(options.Threads);
             TaskFactory factory = new TaskFactory(lcts);
+
+            Console.Write("Finished" + Environment.NewLine);
 
             using (var pbar = new ProgressBar(maxTicks, "Starting", ConsoleColor.Cyan))
             {
@@ -110,7 +124,7 @@ namespace AlphaCoders_Downloader
                     Task.Run(() =>
                     {
                         pbar.UpdateMessage("Downloading images from page " + (currentPage + 1) + "/" + maxTicks);
-                        using (var child = pbar.Spawn(page.Value.Count, "Downloading " + page.Value.Count + " images from current page"))
+                        using (var child = pbar.Spawn(page.Value.Count, "Downloading " + page.Value.Count + " images from current page", new ProgressBarOptions { ForeGroundColor = ConsoleColor.Magenta }))
                         {
                             var current = 0;
                             for (var i = 0; i < page.Value.Count - 1; i++)
@@ -119,7 +133,7 @@ namespace AlphaCoders_Downloader
                                 var t = factory.StartNew(() =>
                                 {
                                     var text = "Downloading: " + page.Value[temp].id + "." + page.Value[temp].file_type + " from " + page.Value[temp].url_image;
-                                    using (var dlChild = child.Spawn(100, text))
+                                    using (var dlChild = child.Spawn(100, text, new ProgressBarOptions { ForeGroundColor = ConsoleColor.Yellow, ProgressCharacter = '#' }))
                                     {
                                         var prevPerct = 0;
                                         var folder = Path.Combine(options.Output, options.Search , page.Value[temp].id + "." + page.Value[temp].file_type);

@@ -16,6 +16,9 @@ namespace AlphaCoders_Downloader
         [Option('o', "output", Default = "output", HelpText = "Folder in which to save downloads at")]
         public string Output { get; set; }
 
+        [Option('v', "verbose", Default = false, HelpText = "Show debug information")]
+        public bool Verbose { get; set; }
+
         [Option(longName: "size", HelpText = "Width x Height to search for (ex: 1920x1080)")]
         public string Size { get; set; }
 
