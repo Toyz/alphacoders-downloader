@@ -6,7 +6,6 @@
 *.user
 *.userosscache
 *.sln.docstates
-auth.txt
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -241,3 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/AlphaCoders Downloader/auth.txt
