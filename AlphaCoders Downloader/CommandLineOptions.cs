@@ -19,10 +19,10 @@ namespace AlphaCoders_Downloader
         [Option('v', "verbose", Default = false, HelpText = "Show debug information")]
         public bool Verbose { get; set; }
 
-        [Option(longName: "size", HelpText = "Width x Height to search for (ex: 1920x1080)")]
+        [Option('z', "size", HelpText = "Width x Height to search for (ex: 1920x1080)")]
         public string Size { get; set; }
 
-        [Option(longName: "mode", Required = true, HelpText = "Current API Mode (search, sub_category, category)")]
+        [Option('m', "mode", Required = true, HelpText = "Current API Mode (search, sub_category, category)")]
         public Globals.SearchModes SearchMode { get; set; }
     }
 }
