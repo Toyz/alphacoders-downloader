@@ -124,7 +124,9 @@ namespace AlphaCoders_Downloader
                     Task.Run(() =>
                     {
                         pbar.UpdateMessage("Downloading images from page " + (currentPage + 1) + "/" + maxTicks);
-                        using (var child = pbar.Spawn(page.Value.Count, "Downloading " + page.Value.Count + " images from current page", new ProgressBarOptions { ForeGroundColor = ConsoleColor.Magenta }))
+                        using (var child = pbar.Spawn(page.Value.Count, "Downloading " + page.Value.Count + " images from current page", new ProgressBarOptions {
+                            ForeGroundColor = ConsoleColor.Green
+                        }))
                         {
                             var current = 0;
                             for (var i = 0; i < page.Value.Count - 1; i++)
@@ -132,8 +134,8 @@ namespace AlphaCoders_Downloader
                                 var temp = i;
                                 var t = factory.StartNew(() =>
                                 {
-                                    var text = "Downloading: " + page.Value[temp].id + "." + page.Value[temp].file_type + " from " + page.Value[temp].url_image;
-                                    using (var dlChild = child.Spawn(100, text, new ProgressBarOptions { ForeGroundColor = ConsoleColor.Yellow, ProgressCharacter = '#' }))
+                                    var text = "Downloading " + page.Value[temp].id + "." + page.Value[temp].file_type + " from " + page.Value[temp].url_image;
+                                    using (var dlChild = child.Spawn(100, text, new ProgressBarOptions { ForeGroundColor = ConsoleColor.Yellow }))
                                     {
                                         var prevPerct = 0;
                                         var folder = Path.Combine(options.Output, options.Search , page.Value[temp].id + "." + page.Value[temp].file_type);
