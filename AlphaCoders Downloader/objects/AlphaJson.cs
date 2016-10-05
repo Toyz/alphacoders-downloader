@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AlphaCoders_Downloader
+namespace AlphaCoders_Downloader.objects
 {
     public class AlphaJson
     {
@@ -22,6 +22,7 @@ namespace AlphaCoders_Downloader
             public List<Wallpaper> wallpapers { get; set; }
             public string total_match { get; set; }
             public string error { get; set; }
+            public bool is_last { get; set; }
         }
 
     }

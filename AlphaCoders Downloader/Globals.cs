@@ -1,4 +1,4 @@
-﻿namespace AlphaCoders_Downloader
+﻿namespace AlphaCoders_Downloader.objects
 {
     public static class Globals
     {

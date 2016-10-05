@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Threading;
 
-namespace AlphaCoders_Downloader
+namespace AlphaCoders_Downloader.helpers
 {
     public class WebDownloader
     {

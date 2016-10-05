@@ -53,11 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlphaJson.cs" />
-    <Compile Include="CommandLineOptions.cs" />
-    <Compile Include="WebDownloader.cs" />
+    <Compile Include="objects\AlphaJson.cs" />
+    <Compile Include="objects\CommandLineOptions.cs" />
+    <Compile Include="helpers\WebDownloader.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="LimitedConcurrencyLevelTaskScheduler.cs" />
+    <Compile Include="helpers\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

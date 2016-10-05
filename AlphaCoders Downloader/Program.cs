@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using System.Net;
 using System.IO;
 using System.Diagnostics;
+using AlphaCoders_Downloader.objects;
+using AlphaCoders_Downloader.helpers;
 
 namespace AlphaCoders_Downloader
 {
@@ -78,7 +80,7 @@ namespace AlphaCoders_Downloader
 
                 WallPapers.Add(page.ToString(), json.wallpapers);
 
-                if (json.wallpapers.Count < 30) return;
+                if (json.is_last) return;
 
                 page = page + 1;
                 GetPages(url, page);
@@ -87,7 +89,7 @@ namespace AlphaCoders_Downloader
 
         private static string GetDownloadURL()
         {
-            string base_url = Globals.base_url + "auth=" + options.AuthCode + "&method=" + options.SearchMode.ToString() + "&" +
+            string base_url = Globals.base_url + "auth=" + options.AuthCode + "&check_last=1&method=" + options.SearchMode.ToString() + "&" +
                 (options.SearchMode == Globals.SearchModes.search ? "term=" + options.Search : "id=" + options.ID);
 
             if (!string.IsNullOrEmpty(options.Size))
