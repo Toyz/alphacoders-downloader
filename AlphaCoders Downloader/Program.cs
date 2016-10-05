@@ -6,6 +6,7 @@ using CommandLine;
 using Newtonsoft.Json;
 using System.Net;
 using System.IO;
+using System.Diagnostics;
 
 namespace AlphaCoders_Downloader
 {
@@ -46,9 +47,12 @@ namespace AlphaCoders_Downloader
                 },
                 errors =>
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Example: " + Process.GetCurrentProcess().ProcessName + " --auth=auth_code --size=1920x1080 --mode=sub_category --search=173025");
                     return 1;
                 });
 
+            Console.ResetColor();
             Console.Write("Press any key to close...");
             Console.ReadKey();
             return exitCode;
