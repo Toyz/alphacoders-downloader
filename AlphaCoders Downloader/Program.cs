@@ -96,7 +96,7 @@ namespace AlphaCoders_Downloader
 
                 if(sizes.Length == 2)
                 {
-                    base_url += "&width=" + sizes[1] + "&height=" + sizes[0] + "&operator=min";
+                    base_url += "&width=" + sizes[1] + "&height=" + sizes[0] + "&operator=" + options.Operator.ToString();
                 }
             }
 

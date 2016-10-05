@@ -27,5 +27,8 @@ namespace AlphaCoders_Downloader
 
         [Option('m', "mode", Required = true, HelpText = "Current API Mode (search, sub_category, category)")]
         public Globals.SearchModes SearchMode { get; set; }
+
+        [Option("operator", Default = Globals.Operator.min, HelpText = "Search Operator (max, equal, min)")]
+        public Globals.Operator Operator { get; set; }
     }
 }

@@ -9,6 +9,13 @@
             category
         }
 
+        public enum Operator
+        {
+            max,
+            equal,
+            min
+        }
+
         public static string base_url { get; } = "https://wall.alphacoders.com/api2.0/get.php?";
     }
 }
