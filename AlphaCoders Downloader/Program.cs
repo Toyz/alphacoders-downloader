@@ -22,7 +22,7 @@ namespace AlphaCoders_Downloader
                 {
                     if (options.AuthCode.Contains("file:"))
                     {
-                    options.AuthCode = File.ReadAllText(options.AuthCode.Split(':')[1]);
+                        options.AuthCode = File.ReadAllText(options.AuthCode.Split(':')[1]);
                     }
     
                     WallPapers = new Dictionary<string, List<AlphaJson.Wallpaper>>();
