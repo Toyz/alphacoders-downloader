@@ -139,7 +139,7 @@ namespace AlphaCoders_Downloader
                     Task.Run(() =>
                     {
                         pbar.UpdateMessage("Downloading images from page " + (currentPage + 1) + "/" + maxTicks);
-                        using (var child = pbar.Spawn(page.Value.Count, "Downloading " + page.Value.Count + " images from current page", new ProgressBarOptions {
+                        using (var child = pbar.Spawn(page.Value.Count, "Downloading " + page.Value.Count + " images from page " + (currentPage + 1), new ProgressBarOptions {
                             ForeGroundColor = ConsoleColor.Green
                         }))
                         {
@@ -150,7 +150,10 @@ namespace AlphaCoders_Downloader
                                 var t = factory.StartNew(() =>
                                 {
                                     var text = "Downloading " + page.Value[temp].id + "." + page.Value[temp].file_type + " from " + page.Value[temp].url_image;
-                                    using (var dlChild = child.Spawn(100, text, new ProgressBarOptions { ForeGroundColor = ConsoleColor.Yellow }))
+                                    using (var dlChild = child.Spawn(100, text, new ProgressBarOptions {
+                                        ForeGroundColor = ConsoleColor.Yellow,
+                                        CollapseWhenFinished = true
+                                    }))
                                     {
                                         var prevPerct = 0;
                                         var folder = Path.Combine(options.Output, options.Search , page.Value[temp].id + "." + page.Value[temp].file_type);
@@ -169,13 +172,14 @@ namespace AlphaCoders_Downloader
                                     }
                                 }).ContinueWith(action =>
                                 {
-                                    child.Tick("Downloaded " + (current = current + 1) + "/" + page.Value.Count + " images from current page");
+                                    child.Tick("Downloaded " + (current = current + 1) + "/" + page.Value.Count + " images from page" + (currentPage + 1));
                                 });
 
                                 tasks.Add(t);
                             }
 
                             Task.WaitAll(tasks.ToArray());
+                            child.UpdateMessage("Downloaded all images from page " + (currentPage + 1));
                         }
                     }).ContinueWith(action => pbar.Tick("Finished Downloading images from " + (currentPage = currentPage + 1) + "/" + WallPapers.Count)).Wait();
                 }
