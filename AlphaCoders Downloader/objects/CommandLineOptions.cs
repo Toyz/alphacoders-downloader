@@ -13,7 +13,7 @@ namespace AlphaCoders_Downloader
         [Option('s', "search", HelpText = "Term at which to search")]
         public string Search { get; set; }
 
-        [Option('i', "id", HelpText = "Category/sub_catagory if mode is sub_category or category")]
+        [Option('i', "id", HelpText = "Category/sub_catagory if mode is sub_category, category, or group")]
         public int ID { get; set; }
 
         [Option('o', "output", Default = "output", HelpText = "Folder in which to save downloads at")]
@@ -25,7 +25,7 @@ namespace AlphaCoders_Downloader
         [Option('z', "size", HelpText = "Width x Height to search for (ex: 1920x1080)")]
         public string Size { get; set; }
 
-        [Option('m', "mode", Required = true, HelpText = "Current API Mode (search, sub_category, category)")]
+        [Option('m', "mode", Required = true, HelpText = "Current API Mode (search, sub_category, category, group)")]
         public Globals.SearchModes SearchMode { get; set; }
 
         [Option("operator", Default = Globals.Operator.min, HelpText = "Search Operator (max, equal, min)")]

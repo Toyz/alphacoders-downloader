@@ -6,7 +6,8 @@
         {
             search,
             sub_category,
-            category
+            category,
+            group
         }
 
         public enum Operator
