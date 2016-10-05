@@ -17,6 +17,8 @@ namespace AlphaCoders_Downloader
         {
             var result = Parser.Default.ParseArguments<CommandLineOptions>(args);
 
+            Console.Title = "AlphaCoders Downloader";
+
             var exitCode = result.MapResult(
                 options =>
                 {
@@ -31,6 +33,12 @@ namespace AlphaCoders_Downloader
                         options.Threads = Environment.ProcessorCount;
                     }
 
+                    if(options.Output == "output")
+                    {
+                        options.Output = Path.Combine(Directory.GetCurrentDirectory(), options.Output);
+                    }
+
+                    Console.Title += " - " + options.Output;
                     DoWork(options);
                     return 0;
                 },
@@ -101,8 +109,8 @@ namespace AlphaCoders_Downloader
                     var tasks = new List<Task>();
                     Task.Run(() =>
                     {
-                        pbar.UpdateMessage("Downloading Page " + (currentPage + 1) + "/" + maxTicks);
-                        using (var child = pbar.Spawn(page.Value.Count, "Downloading " + page.Value.Count + " items"))
+                        pbar.UpdateMessage("Downloading images from page " + (currentPage + 1) + "/" + maxTicks);
+                        using (var child = pbar.Spawn(page.Value.Count, "Downloading " + page.Value.Count + " images from current page"))
                         {
                             var current = 0;
                             for (var i = 0; i < page.Value.Count - 1; i++)
@@ -110,21 +118,27 @@ namespace AlphaCoders_Downloader
                                 var temp = i;
                                 var t = factory.StartNew(() =>
                                 {
-                                    using (var dlChild = child.Spawn(100, "Downloading: " + page.Value[temp].id + "." + page.Value[temp].file_type))
+                                    var text = "Downloading: " + page.Value[temp].id + "." + page.Value[temp].file_type + " from " + page.Value[temp].url_image;
+                                    using (var dlChild = child.Spawn(100, text))
                                     {
                                         var prevPerct = 0;
-                                        WebDownloader.Download(page.Value[temp].url_image, "output/" + page.Value[temp].id + "." + page.Value[temp].file_type, (perc, cur, total) =>
+                                        var folder = Path.Combine(options.Output, options.Search , page.Value[temp].id + "." + page.Value[temp].file_type);
+                                        if (!Directory.Exists(Path.GetDirectoryName(folder))) {
+                                            Directory.CreateDirectory(Path.GetDirectoryName(folder));
+                                        }
+
+                                        WebDownloader.Download(page.Value[temp].url_image, folder , (perc, cur, total) =>
                                         {
                                             if (perc > prevPerct)
                                             {
-                                                dlChild.Tick("Downloading: " + page.Value[temp].id + "." + page.Value[temp].file_type, perc);
+                                                dlChild.Tick(text, perc);
                                                 prevPerct = perc;
                                             }
                                         });
                                     }
                                 }).ContinueWith(action =>
                                 {
-                                    child.Tick("Processed " + (current = current + 1) + "/" + page.Value.Count);
+                                    child.Tick("Downloaded " + (current = current + 1) + "/" + page.Value.Count + " images from current page");
                                 });
 
                                 tasks.Add(t);
@@ -132,7 +146,7 @@ namespace AlphaCoders_Downloader
 
                             Task.WaitAll(tasks.ToArray());
                         }
-                    }).ContinueWith(action => pbar.Tick("Finished " + (currentPage = currentPage + 1) + "/" + WallPapers.Count)).Wait();
+                    }).ContinueWith(action => pbar.Tick("Finished Downloading images from " + (currentPage = currentPage + 1) + "/" + WallPapers.Count)).Wait();
                 }
 
                 pbar.UpdateMessage("Finished...");

@@ -13,6 +13,9 @@ namespace AlphaCoders_Downloader
         [Option('s', "search", Required = true, HelpText = "Term at which to search")]
         public string Search { get; set; }
 
+        [Option('o', "output", Default = "output", HelpText = "Folder in which to save downloads at")]
+        public string Output { get; set; }
+
         [Option(longName: "size", HelpText = "Width x Height to search for (ex: 1920x1080)")]
         public string Size { get; set; }
 
