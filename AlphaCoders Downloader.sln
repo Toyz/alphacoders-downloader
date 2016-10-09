@@ -5,7 +5,13 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaCoders Downloader", "AlphaCoders Downloader\AlphaCoders Downloader.csproj", "{5CEC33A5-41C0-4AFE-B33A-F3D33412F467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellProgressBar", "shellprogressbar-master\src\ShellProgressBar\ShellProgressBar.csproj", "{4767E390-2159-470C-AE49-E75E2DDF80A4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{B4BA5C7F-DDA3-4050-95BA-3ABFF63CAA07}"
+	ProjectSection(SolutionItems) = preProject
+		.build\MSBuild.Community.Tasks.dll = .build\MSBuild.Community.Tasks.dll
+		.build\MSBuild.Community.Tasks.targets = .build\MSBuild.Community.Tasks.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellProgressBar", "repos\shellprogressbar\src\ShellProgressBar\ShellProgressBar.csproj", "{4767E390-2159-470C-AE49-E75E2DDF80A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
