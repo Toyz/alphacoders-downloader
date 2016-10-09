@@ -21,7 +21,7 @@ namespace AlphaCoders_Downloader
         {
             var result = Parser.Default.ParseArguments<CommandLineOptions>(args);
 
-            Console.Title = "AlphaCoders Downloader";
+            Console.Title = Process.GetCurrentProcess().ProcessName;
 
             var exitCode = result.MapResult(
                 options =>
@@ -44,6 +44,7 @@ namespace AlphaCoders_Downloader
 
                     if(options.SearchMode == Globals.SearchModes.search && string.IsNullOrEmpty(options.Search))
                     {
+                        Console.WriteLine("Please use --help for proper usage");
                         return 1;
                     }
 
