@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using System.Collections.Generic;
 
 namespace AlphaCoders_Downloader
 {
@@ -31,7 +32,7 @@ namespace AlphaCoders_Downloader
         [Option("operator", Default = Globals.Operator.min, HelpText = "Search Operator (0 - max, 1 - equal, 2 - min)")]
         public Globals.Operator Operator { get; set; }
 
-        [Option("sort", Default = Globals.Sort.newest, HelpText = "Sort mode for results (1 - newest, 2 - rating, 3 - views, 4 - favorites)")]
+        [Option("sort", Default = Globals.Sort.newest, HelpText = "Sort mode for results (0 - newest, 1 - rating, 2 - views, 3 - favorites)")]
         public Globals.Sort SortMode { get; set; }
     }
 }

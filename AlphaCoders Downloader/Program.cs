@@ -94,7 +94,7 @@ namespace AlphaCoders_Downloader
 
         private static string GetDownloadURL()
         {
-            string base_url = Globals.base_url + "auth=" + options.AuthCode + "&check_last=1&method=" + options.SearchMode.ToString() + "&sort=" + options.SortMode.ToString();
+            string base_url = Globals.base_url + "auth=" + options.AuthCode + "&method=" + options.SearchMode.ToString() + "&sort=" + options.SortMode.ToString();
 
             if(options.SearchMode == Globals.SearchModes.search)
             {
@@ -110,7 +110,7 @@ namespace AlphaCoders_Downloader
 
                 if(sizes.Length == 2)
                 {
-                    base_url += "&width=" + sizes[1] + "&height=" + sizes[0] + "&operator=" + options.Operator.ToString();
+                    base_url += "&height=" + sizes[1] + "&width=" + sizes[0] + "&operator=" + options.Operator.ToString();
                 }
             }
 
@@ -194,7 +194,7 @@ namespace AlphaCoders_Downloader
                                     }
                                 }).ContinueWith(action =>
                                 {
-                                    child.Tick("Downloaded " + (current = current + 1) + "/" + page.Value.Count + " images from page" + (currentPage + 1));
+                                    child.Tick("Downloaded " + (current = current + 1) + "/" + page.Value.Count + " images from page " + (currentPage + 1));
                                 });
 
                                 tasks.Add(t);
