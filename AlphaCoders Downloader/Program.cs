@@ -85,7 +85,7 @@ namespace AlphaCoders_Downloader
 
                 WallPapers.Add(page.ToString(), json.wallpapers);
 
-                if (json.is_last || json.wallpapers.Count < 30) return;
+                if (json.wallpapers.Count < 30) return;
 
                 page = page + 1;
                 GetPages(url, page);
