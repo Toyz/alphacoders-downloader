@@ -19,6 +19,9 @@ namespace AlphaCoders_Downloader
 
         static int Main(string[] args)
         {
+            Console.CursorVisible = false;
+            Console.Clear();
+
             var result = Parser.Default.ParseArguments<CommandLineOptions>(args);
 
             Console.Title = Process.GetCurrentProcess().ProcessName;
@@ -138,6 +141,7 @@ namespace AlphaCoders_Downloader
                 }
             }
 
+            Console.WriteLine("Downloading Images To: " + Path.Combine(options.Output, options.Search));
             Console.Write("Setting up workers and task queues... ");
 
             var maxTicks = WallPapers.Count;
