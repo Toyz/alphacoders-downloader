@@ -141,6 +141,7 @@ namespace AlphaCoders_Downloader
                 }
             }
 
+            Console.Title += "\\" + options.Search;
             Console.WriteLine("Downloading Images To: " + Path.Combine(options.Output, options.Search));
             Console.Write("Setting up workers and task queues... ");
 
